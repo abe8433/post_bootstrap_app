@@ -6,9 +6,13 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
+    post = Post.create!(post_params)
+    redirect_to post
+    # 次の書き方でも同じ redirect_to post_path(post)
   end
 
   def edit
@@ -18,5 +22,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content)
   end
 end
